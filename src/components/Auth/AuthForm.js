@@ -32,14 +32,22 @@ const AuthForm = () => {
           'Content-Type': 'application/json',
         },
       }
-      );
+      ).then(res => {
+        if (res.ok) {
+          // ...
+        } else {
+          return res.json().then(data => {
+            console.log(data);
+          });
+        }
+      });
     }
   };
 
   return (
     <section className={classes.auth}>
       <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
-      <form>
+      <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor='email'>Your Email</label>
           <input type='email' id='email' required ref={emailInputRef} />
